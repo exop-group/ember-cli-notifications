@@ -1,0 +1,48 @@
+$notification-container-position: 10px !default;
+$notification-container-zindex: 1060 !default;
+$notification-container-width: 80% !default;
+$notification-container-max-width: 400px !default;
+
+.notification-container {
+  position: fixed;
+  margin: 0 auto;
+  z-index: $notification-container-zindex;
+  width: $notification-container-width;
+  max-width: $notification-container-max-width;
+
+  &.top {
+    top: $notification-container-position;
+    right: 0;
+    left: 0;
+  }
+
+  &.top-left {
+    top: $notification-container-position;
+    right: auto;
+    left: $notification-container-position;
+  }
+
+  &.top-right {
+    top: $notification-container-position;
+    right: $notification-container-position;
+    left: auto;
+  }
+
+  &.bottom {
+    right: 0;
+    bottom: $notification-container-position;
+    left: 0;
+  }
+
+  &.bottom-left {
+    right: auto;
+    bottom: $notification-container-position;
+    left: $notification-container-position;
+  }
+
+  &.bottom-right {
+    right: $notification-container-position;
+    bottom: $notification-container-position;
+    left: auto;
+  }
+}

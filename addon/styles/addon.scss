@@ -1,0 +1,12 @@
+/* Colors */
+$notification-message-green: #64ce83 !default;
+$notification-message-blue: #3ea2ff !default;
+$notification-message-orange: #ff7f48 !default;
+$notification-message-red: #e74c3c !default;
+
+/* Spacing */
+$notification-message-spacing-1: .5rem !default;
+$notification-message-spacing-2: 1rem !default;
+
+@import 'components/notification-container';
+@import 'components/notification-message';

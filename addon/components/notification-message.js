@@ -4,12 +4,11 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import Ember from 'ember';
 import layout from '../templates/components/notification-message';
-import styles from '../styles/components/notification-message';
 
 export default Component.extend({
   layout,
-  styles,
 
+  classNames: ['notification-message'],
   classNameBindings: [
     'dismissClass',
     'clickableClass',
@@ -22,19 +21,24 @@ export default Component.extend({
   paused: false,
 
   dismissClass: computed('notification.dismiss', function() {
-    if (!this.get('notification.dismiss')) return this.get('styles.c-notification--in');
+    if (!this.get('notification.dismiss')) return 'in';
 
     return false;
   }),
 
   clickableClass: computed('notification.onClick', function() {
-    if (this.get('notification.onClick')) return this.get('styles.c-notification--clickable');
+    if (this.get('notification.onClick')) return 'clickable';
 
     return false;
   }),
 
   closeIcon: computed('icons', function() {
-    if (this.get('icons') === 'bootstrap') return 'glyphicon glyphicon-remove';
+    switch (this.get('icons')){
+      case 'bootstrap':
+        return 'glyphicon glyphicon-remove';
+      case 'semantic-ui':
+        return 'remove icon';
+    }
 
     return 'fa fa-times';
   }),
@@ -52,6 +56,19 @@ export default Component.extend({
         case "warning":
         case "error":
           return 'glyphicon glyphicon-exclamation-sign';
+      }
+    }
+
+    if (icons === 'semantic-ui') {
+      switch (this.get('notification.type')){
+        case "info":
+          return 'info circle icon';
+        case "success":
+          return 'checkmark icon';
+        case "warning":
+          return 'warning sign icon';
+        case "error":
+          return 'warning circle icon';
       }
     }
 
@@ -88,7 +105,7 @@ export default Component.extend({
 
   processedType: computed('notification.type', function() {
     if (this.get('notification.type') && A(['info', 'success', 'warning', 'error']).includes(this.get('notification.type'))) {
-      return this.get(`styles.c-notification--${this.get('notification.type')}`);
+      return this.get('notification.type');
     }
   }),
 
