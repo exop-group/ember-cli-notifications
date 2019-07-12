@@ -5,7 +5,7 @@ import { isEmpty } from '@ember/utils';
 import EmberObject, { getWithDefault, set } from '@ember/object';
 import { run } from '@ember/runloop';
 import config from 'ember-get-config';
-import Ember from '@ember';
+import Ember from 'ember';
 
 const notificationAssign = assign || merge;
 const globals = config['ember-cli-notifications'] || {}; // Import app config object
