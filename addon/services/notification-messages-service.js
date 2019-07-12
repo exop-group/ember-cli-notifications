@@ -5,6 +5,7 @@ import { isEmpty } from '@ember/utils';
 import EmberObject, { getWithDefault, set } from '@ember/object';
 import { run } from '@ember/runloop';
 import config from 'ember-get-config';
+import Ember from '@ember';
 
 const notificationAssign = assign || merge;
 const globals = config['ember-cli-notifications'] || {}; // Import app config object
@@ -77,20 +78,24 @@ const NotificationMessagesService = ArrayProxy.extend({
     notification.set('dismiss', true);
 
     // Delay removal from DOM for dismissal animation
+    const timeout = Ember.testing ? 0 : 500;
+
     run.later(this, () => {
       this.removeObject(notification);
-    }, 500);
+    }, timeout);
   },
 
   setupAutoClear(notification) {
     notification.set('startTime', Date.now());
+
+    const timeout = Ember.testing ? 0 : notification.get('remaining');
 
     const timer = run.later(this, () => {
       // Hasn't been closed manually
       if (this.indexOf(notification) >= 0) {
           this.removeNotification(notification);
       }
-    }, notification.get('remaining'));
+    }, timeout);
 
     notification.set('timer', timer);
   },
